@@ -1,0 +1,191 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 20
+        canvas.before:
+            Color:
+                rgba: 0.05, 0.05, 0.05, 1  # fundo escuro suave
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # ----- Logo -----
+        Image:
+            source: 'logo.png'
+            size_hint_y: None
+            height: 150
+            allow_stretch: True
+            keep_ratio: True
+
+        # ----- Título -----
+        Label:
+            text: 'Olá Amigo!'
+            font_size: 28
+            bold: True
+            size_hint_y: None
+            height: 50
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+            color: 1,1,1,1
+
+        # ----- Campos de login -----
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 15
+            size_hint_y: None
+            height: 160
+
+            # Usuário
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 5
+                Label:
+                    text: 'Nome do usuário'
+                    size_hint_y: None
+                    height: 22
+                    color: 1,1,1,1
+                    font_size: 16
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.width, None
+                TextInput:
+                    id: entrada_usuario
+                    hint_text: 'Digite seu usuário'
+                    size_hint_y: None
+                    height: 45
+                    background_normal: ''
+                    background_color: 0,0,0,0
+                    foreground_color: 1,1,1,1
+                    padding: [15, 12]
+                    canvas.before:
+                        Color:
+                            rgba: 0.15,0.15,0.15,1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [20]
+                        Color:
+                            rgba: 0,0,0,0.5
+                        Line:
+                            width: 1
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 20)
+
+            # Senha
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: 5
+                Label:
+                    text: 'Senha'
+                    size_hint_y: None
+                    height: 22
+                    color: 1,1,1,1
+                    font_size: 16
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.width, None
+                TextInput:
+                    id: entrada_senha
+                    hint_text: 'Digite sua senha'
+                    password: True
+                    size_hint_y: None
+                    height: 45
+                    background_normal: ''
+                    background_color: 0,0,0,0
+                    foreground_color: 1,1,1,1
+                    padding: [15, 12]
+                    canvas.before:
+                        Color:
+                            rgba: 0.15,0.15,0.15,1
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [20]
+                        Color:
+                            rgba: 0,0,0,0.5
+                        Line:
+                            width: 1
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 20)
+
+        # ----- Botão Entrar totalmente arredondado -----
+        Button:
+            text: 'Entrar'
+            size_hint_y: None
+            height: 50
+            font_size: 16
+            bold: True
+            background_normal: ''      # remove textura padrão
+            background_color: 0,0,0,0 # fundo transparente
+            color: 1,1,1,1
+            on_press: root.manager.current = 'welcome'
+
+            canvas.before:
+                Color:
+                    rgba: 0.9,0.35,0.35,1  # cor do botão
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [25]  # totalmente arredondado
+
+        Widget:
+            size_hint_y: None
+            height: 10
+
+        # ----- Esqueci minha senha -----
+        Button:
+            text: 'Esqueci minha senha'
+            font_size: 12
+            size_hint_y: None
+            height: 30
+            background_normal: ''
+            background_color: 0,0,0,0
+            color: 0.9,0.5,0.5,1
+            on_press: root.manager.current = 'main'
+
+        # ----- Seção registro e contato com cinza suavizado -----
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 130
+            padding: 5
+            spacing: 5
+            canvas.before:
+                Color:
+                    rgba: 0.5,0.5,0.5,0.3  # cinza mais suave
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15]
+                Color:
+                    rgba: 0.9,0.35,0.35,1
+                Line:
+                    width: 1.2
+                    rounded_rectangle: (self.x+5, self.y+5, self.width-10, self.height-10, 15)
+
+            Label:
+                text: 'Não possui acesso?'
+                size_hint_y: None
+                height: 30
+                color: 1,1,1,1
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            Button:
+                text: 'Registre-se agora'
+                size_hint_y: None
+                height: 45
+                font_size: 15
+                bold: True
+                background_normal: ''
+                background_color: 0.9,0.35,0.35,1
+                color: 1,1,1,1
+                on_press: root.manager.current = 'main'
+
+            Label:
+                text: 'Dúvidas? Contato: (27) XXXXX-XXXX'
+                size_hint_y: None
+                height: 20
+                font_size: 14
+                color: 1,1,1,1
