@@ -1,32 +1,227 @@
 <ScheduleScreen>:
     BoxLayout:
         orientation: 'vertical'
-        padding: 30
+        padding: 20
         spacing: 20
 
-        Label:
-            text: 'Agenda de Treinos'
-            font_size: 25
-            color: 1,1,1,1
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
 
-        GridLayout:
-            id: agenda_grid
-            cols: 5
-            size_hint_y: None
-            height: self.minimum_height
+            GridLayout:
+                id: cards_grid
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 15
 
-        Button:
-            text: 'Voltar ao Menu'
+                # --- Card de Time ---
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: 180
+                    padding: 15
+                    spacing: 8
+
+                    canvas.before:
+                        Color:
+                            rgba: 0.2, 0.6, 0.9, 0.8
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [25]
+
+                    Label:
+                        text: 'Nome do Time: Bom de Bola'
+                        font_size: 18
+                        bold: True
+                        color: 1,1,1,1
+                        size_hint_y: None
+                        height: 30
+
+                    Label:
+                        text: 'Temporada: 2025'
+                        font_size: 16
+                        bold: True
+                        color: 1,1,1,1
+                        size_hint_y: None
+                        height: 30
+
+                    Label:
+                        text: 'Categoria: Sub-10 & Sub-12'
+                        font_size: 16
+                        bold: True
+                        color: 1,1,1,1
+                        size_hint_y: None
+                        height: 30
+
+                    Label:
+                        text: 'Técnico: Evandro M.P. Jadijisky'
+                        font_size: 16
+                        bold: True
+                        color: 1,1,1,1
+                        size_hint_y: None
+                        height: 30
+
+                # --- Card de Amistoso Editável com rótulos fixos ---
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: 220
+                    padding: 15
+                    spacing: 10
+
+                    canvas.before:
+                        Color:
+                            rgba: 0.8, 0.4, 0.2, 0.8
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [25]
+
+                    # Adversário
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 30
+                        spacing: 10
+
+                        Label:
+                            text: 'Adversário:'
+                            font_size: 16
+                            bold: True
+                            color: 1,1,1,1
+                            size_hint_x: None
+                            width: 100
+
+                        TextInput:
+                            id: adversario_input
+                            text: 'Sub-10 x Sub-12'
+                            font_size: 16
+                            bold: True
+                            multiline: False
+                            foreground_color: 1,1,1,1
+                            background_color: 0,0,0,0
+
+                    # Data
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 25
+                        spacing: 10
+
+                        Label:
+                            text: 'Data:'
+                            font_size: 14
+                            bold: True
+                            color: 1,1,1,1
+                            size_hint_x: None
+                            width: 100
+
+                        TextInput:
+                            id: data_input
+                            text: '25/09/2025'
+                            font_size: 14
+                            bold: True
+                            multiline: False
+                            foreground_color: 1,1,1,1
+                            background_color: 0,0,0,0
+
+                    # Local
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 25
+                        spacing: 10
+
+                        Label:
+                            text: 'Local:'
+                            font_size: 14
+                            bold: True
+                            color: 1,1,1,1
+                            size_hint_x: None
+                            width: 100
+
+                        TextInput:
+                            id: local_input
+                            text: 'Campo Principal'
+                            font_size: 14
+                            bold: True
+                            multiline: False
+                            foreground_color: 1,1,1,1
+                            background_color: 0,0,0,0
+
+                    # Botões do card
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 40
+                        spacing: 10
+
+                        Button:
+                            text: 'Salvar'
+                            background_normal: ''
+                            background_color: 0.3, 0.7, 0.3, 1
+                            color: 1,1,1,1
+                            font_size: 14
+                            bold: True
+                            border: (0,0,0,0)
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [15]
+
+                        Button:
+                            text: 'Cancelar'
+                            background_normal: ''
+                            background_color: 0.8, 0.2, 0.2, 1
+                            color: 1,1,1,1
+                            font_size: 14
+                            bold: True
+                            border: (0,0,0,0)
+                            canvas.before:
+                                Color:
+                                    rgba: self.background_color
+                                RoundedRectangle:
+                                    pos: self.pos
+                                    size: self.size
+                                    radius: [15]
+
+        # --- Botões principais arredondados ---
+        BoxLayout:
             size_hint_y: None
-            height: 50
-            background_normal: ''
-            background_color: 0,0,0,0
-            color: 1,1,1,1
-            on_press: root.manager.current = 'welcome'
-            canvas.before:
-                Color:
-                    rgba: 0.9,0.35,0.35,1
-                RoundedRectangle:
-                    pos: self.pos
-                    size: self.size
-                    radius: [25]
+            height: 60
+            spacing: 15
+
+            Button:
+                text: 'Salvar Alterações'
+                background_normal: ''
+                background_color: 0.2, 0.7, 0.3, 1
+                color: 1,1,1,1
+                font_size: 16
+                bold: True
+                border: (0,0,0,0)
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [25]
+
+            Button:
+                text: 'Voltar ao Início'
+                background_normal: ''
+                background_color: 0.4, 0.4, 0.9, 1
+                color: 1,1,1,1
+                font_size: 16
+                bold: True
+                border: (0,0,0,0)
+                on_release:
+                    app.root.current = 'welcome'  # << Alterado para ir para a tela welcome
+                canvas.before:
+                    Color:
+                        rgba: self.background_color
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [25]

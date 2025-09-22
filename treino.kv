@@ -1,14 +1,143 @@
 <TreinoScreen>:
     BoxLayout:
         orientation: 'vertical'
-        padding: 30
-        spacing: 20
+        padding: 20
+        spacing: 15
 
         Label:
-            text: 'Página de Treinos'
-            font_size: 25
+            text: 'Plano de Treino'
+            font_size: 30
             color: 1,1,1,1
+            size_hint_y: None
+            height: 40
+            halign: "center"
+            text_size: self.size
 
+        # Card Aquecimento
+        BoxLayout:
+            orientation: "vertical"
+            padding: 10
+            spacing: 3
+            size_hint_y: None
+            height: 100
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.6, 0.9, 0.8
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15]
+
+            Label:
+                text: "Aquecimento"
+                font_size: 18
+                bold: True
+                color: 1,1,1,1
+
+            Label:
+                text: " 10 min"
+                font_size: 16
+                color: 1,1,1,1
+
+            Label:
+                text: "Corrida leve"
+                font_size: 15
+                color: 1,1,1,1
+
+        # Card Domínio e Passe
+        BoxLayout:
+            orientation: "vertical"
+            padding: 10
+            spacing: 3
+            size_hint_y: None
+            height: 100
+            canvas.before:
+                Color:
+                    rgba: 0.1, 0.7, 0.4, 0.8
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15]
+
+            Label:
+                text: "Domínio e Passe"
+                font_size: 18
+                bold: True
+                color: 1,1,1,1
+
+            Label:
+                text: "10 min"
+                font_size: 16
+                color: 1,1,1,1
+
+            Label:
+                text: "Condução e troca de passes"
+                font_size: 15
+                color: 1,1,1,1
+
+        # Card Coletivo
+        BoxLayout:
+            orientation: "vertical"
+            padding: 10
+            spacing: 3
+            size_hint_y: None
+            height: 120
+            canvas.before:
+                Color:
+                    rgba: 0.9, 0.6, 0.2, 0.8
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15]
+
+            Label:
+                text: "Coletivo"
+                font_size: 18
+                bold: True
+                color: 1,1,1,1
+
+            Label:
+                text: " 50 min"
+                font_size: 16
+                color: 1,1,1,1
+
+            Label:
+                text: "Disputa de partidas"
+                font_size: 15
+                color: 1,1,1,1
+
+        # Card Pênaltis
+        BoxLayout:
+            orientation: "vertical"
+            padding: 10
+            spacing: 3
+            size_hint_y: None
+            height: 100
+            canvas.before:
+                Color:
+                    rgba: 0.7, 0.2, 0.9, 0.8
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [15]
+
+            Label:
+                text: "Cobrança de Pênalti"
+                font_size: 18
+                bold: True
+                color: 1,1,1,1
+
+            Label:
+                text: "20 min"
+                font_size: 16
+                color: 1,1,1,1
+
+            Label:
+                text: "Treino de cobranças"
+                font_size: 15
+                color: 1,1,1,1
+
+        # Botão Voltar
         Button:
             text: 'Voltar ao Menu'
             size_hint_y: None
