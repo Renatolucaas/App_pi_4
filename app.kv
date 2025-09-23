@@ -10,19 +10,14 @@
                 pos: self.pos
                 size: self.size
 
-                
+        # ----- IMAGEM ADICIONADA -----
+        Image:
+            source:"C:/Users/Pichau/Desktop/APP_PI_4/images/logoAA.png" # substitua pelo nome da sua imagem
+            size_hint: 1, None
+            height: self.parent.height * 0.3  # ocupa 70% da altura disponível
+            allow_stretch: True
+            keep_ratio: True
 
-        # ----- Título -----
-        Label:
-            text: 'Olá Amigo!'
-            font_size: 28
-            bold: True
-            size_hint_y: None
-            height: 50
-            halign: 'center'
-            valign: 'middle'
-            text_size: self.size
-            color: 1,1,1,1
 
         # ----- Campos de login -----
         BoxLayout:
