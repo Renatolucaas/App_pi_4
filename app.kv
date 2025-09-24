@@ -5,19 +5,18 @@
         spacing: 20
         canvas.before:
             Color:
-                rgba: 0.05, 0.05, 0.05, 1  # fundo escuro suave
+                rgba: 0.05, 0.05, 0.05, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
 
         # ----- IMAGEM ADICIONADA -----
         Image:
-            source:"C:/Users/Pichau/Desktop/APP_PI_4/images/logoAA.png" # substitua pelo nome da sua imagem
+            source:"C:/Users/Pichau/Desktop/APP_PI_4/images/logoAA.png"
             size_hint: 1, None
-            height: self.parent.height * 0.3  # ocupa 70% da altura disponível
+            height: self.parent.height * 0.3
             allow_stretch: True
             keep_ratio: True
-
 
         # ----- Campos de login -----
         BoxLayout:
@@ -97,25 +96,25 @@
                             width: 1
                             rounded_rectangle: (self.x, self.y, self.width, self.height, 20)
 
-        # ----- Botão Entrar totalmente arredondado -----
+        # ----- Botão Entrar -----
         Button:
             text: 'Entrar'
             size_hint_y: None
             height: 50
             font_size: 16
             bold: True
-            background_normal: ''      # remove textura padrão
-            background_color: 0,0,0,0 # fundo transparente
+            background_normal: ''
+            background_color: 0,0,0,0
             color: 1,1,1,1
             on_press: root.manager.current = 'welcome'
 
             canvas.before:
                 Color:
-                    rgba: 0.9,0.35,0.35,1  # cor do botão
+                    rgba: 0.9,0.35,0.35,1
                 RoundedRectangle:
                     pos: self.pos
                     size: self.size
-                    radius: [25]  # totalmente arredondado
+                    radius: [25]
 
         Widget:
             size_hint_y: None
@@ -132,7 +131,7 @@
             color: 0.9,0.5,0.5,1
             on_press: root.manager.current = 'main'
 
-        # ----- Seção registro e contato com cinza suavizado -----
+        # ----- Seção registro e contato -----
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
@@ -141,7 +140,7 @@
             spacing: 5
             canvas.before:
                 Color:
-                    rgba: 0.5,0.5,0.5,0.3  # cinza mais suave
+                    rgba: 0.5,0.5,0.5,0.3
                 RoundedRectangle:
                     pos: self.pos
                     size: self.size
@@ -170,7 +169,8 @@
                 background_normal: ''
                 background_color: 0.9,0.35,0.35,1
                 color: 1,1,1,1
-                on_press: root.manager.current = 'main'
+                # <<< Alterado para abrir a tela de registro
+                on_release: root.manager.current = 'register'
 
             Label:
                 text: 'Dúvidas? Contato: (27) XXXXX-XXXX'

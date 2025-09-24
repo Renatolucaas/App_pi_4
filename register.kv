@@ -1,0 +1,139 @@
+<RegisterScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [40, 20, 40, 20]
+        spacing: 15
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Espaço no topo
+        Widget:
+            size_hint_y: None
+            height: 10
+
+        # Imagem
+        Image:
+            source: "images/logoAA.png"
+            size_hint_y: None
+            height: 120
+            allow_stretch: True
+            keep_ratio: True
+
+        # Título
+        Label:
+            text: "Crie sua conta"
+            font_size: 24
+            bold: True
+            size_hint_y: None
+            height: 40
+            color: 1, 1, 1, 1
+
+        # Input Nome
+        TextInput:
+            id: nome_input
+            hint_text: "Nome"
+            multiline: False
+            size_hint_y: None
+            height: 50
+            background_color: 0.9, 0.9, 0.9, 1  # Fundo mais claro para contraste
+            foreground_color: 0, 0, 0, 1  # Texto preto para melhor visibilidade
+            padding: [20, 15]
+            cursor_color: 0, 0, 0, 1
+            hint_text_color: 0.4, 0.4, 0.4, 1
+            on_text: root.check_campos()
+            canvas.before:
+                Color:
+                    rgba: 0.3, 0.3, 0.3, 1  # Borda mais escura
+                Line:
+                    width: 2
+                    rounded_rectangle: [self.x, self.y, self.width, self.height, 10]
+
+
+        # Input Senha
+        TextInput:
+            id: senha_input
+            hint_text: "Senha"
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 50
+            background_color: 0.9, 0.9, 0.9, 1
+            foreground_color: 0, 0, 0, 1
+            padding: [20, 15]
+            cursor_color: 0, 0, 0, 1
+            hint_text_color: 0.4, 0.4, 0.4, 1
+            on_text: root.check_campos()
+            canvas.before:
+                Color:
+                    rgba: 0.3, 0.3, 0.3, 1
+                Line:
+                    width: 2
+                    rounded_rectangle: [self.x, self.y, self.width, self.height, 10]
+
+        # Input Confirmar Senha
+        TextInput:
+            id: confirma_input
+            hint_text: "Confirme a senha"
+            password: True
+            multiline: False
+            size_hint_y: None
+            height: 50
+            background_color: 0.9, 0.9, 0.9, 1
+            foreground_color: 0, 0, 0, 1
+            padding: [20, 15]
+            cursor_color: 0, 0, 0, 1
+            hint_text_color: 0.4, 0.4, 0.4, 1
+            on_text: root.check_campos()
+            canvas.before:
+                Color:
+                    rgba: 0.3, 0.3, 0.3, 1
+                Line:
+                    width: 2
+                    rounded_rectangle: [self.x, self.y, self.width, self.height, 10]
+
+        # Botão Registrar
+        Button:
+            id: btn_registrar
+            text: "Registrar"
+            size_hint_y: None
+            height: 50
+            bold: True
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+            color: 1, 1, 1, 1
+            disabled: True
+            on_release: root.validar_e_salvar()
+            canvas.before:
+                Color:
+                    rgba: 0.3, 0.7, 0.3, 1 if not self.disabled else 0.2, 0.4, 0.2, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+
+        # Botão Voltar
+        Button:
+            text: "Voltar"
+            size_hint_y: None
+            height: 50
+            bold: True
+            background_normal: ''
+            background_color: 0, 0, 0, 0
+            color: 1, 1, 1, 1
+            on_release: app.root.current = "login"
+            canvas.before:
+                Color:
+                    rgba: 0.9,0.35,0.35,1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+
+        # Espaço inferior
+        Widget:
+            size_hint_y: None
+            height: 10

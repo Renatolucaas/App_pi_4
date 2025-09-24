@@ -12,12 +12,81 @@ import datetime
 import json
 import os
 
-# Tamanho da janela (simulando celular)
 Window.size = (400, 700)
 
 # --- Classes de telas ---
-class LoginScreen(Screen): 
-    pass
+class LoginScreen(Screen):
+    def validar_login(self):
+        usuario_digitado = self.ids.entrada_usuario.text.strip()
+        senha_digitada = self.ids.entrada_senha.text.strip()
+
+        if not os.path.exists("usuario.json"):
+            popup = Popup(title='Erro',
+                          content=Label(text='Nenhum usuário cadastrado!'),
+                          size_hint=(0.6,0.3))
+            popup.open()
+            return
+
+        with open("usuario.json", "r") as f:
+            dados = json.load(f)
+
+        if usuario_digitado == dados.get("nome") and senha_digitada == dados.get("senha"):
+            self.manager.current = "welcome"
+        else:
+            popup = Popup(title='Erro',
+                          content=Label(text='Usuário ou senha incorretos!'),
+                          size_hint=(0.6,0.3))
+            popup.open()
+
+class RegisterScreen(Screen):
+    def check_campos(self):
+        """Ativa o botão Registrar apenas se todos os campos estiverem preenchidos"""
+        nome = self.ids.nome_input.text.strip()
+        email = self.ids.email_input.text.strip()
+        senha = self.ids.senha_input.text.strip()
+        confirma = self.ids.confirma_input.text.strip()
+        
+        # Verifica se todos os campos têm conteúdo
+        if nome and email and senha and confirma:
+            self.ids.btn_registrar.disabled = False
+        else:
+            self.ids.btn_registrar.disabled = True
+
+    def validar_e_salvar(self):
+        nome = self.ids.nome_input.text.strip()
+        email = self.ids.email_input.text.strip()
+        senha = self.ids.senha_input.text.strip()
+        confirma = self.ids.confirma_input.text.strip()
+
+        if not nome or not email or not senha or not confirma:
+            popup = Popup(title='Erro',
+                          content=Label(text='Todos os campos devem ser preenchidos!'),
+                          size_hint=(0.6,0.3))
+            popup.open()
+            return
+
+        if senha != confirma:
+            popup = Popup(title='Erro',
+                          content=Label(text='As senhas não coincidem!'),
+                          size_hint=(0.6,0.3))
+            popup.open()
+            return
+
+        dados = {"nome": nome, "email": email, "senha": senha}
+        with open("usuario.json", "w") as f:
+            json.dump(dados, f)
+
+        popup = Popup(title='Sucesso',
+                      content=Label(text='Usuário registrado com sucesso!'),
+                      size_hint=(0.6,0.3))
+        popup.open()
+
+        self.ids.nome_input.text = ''
+        self.ids.email_input.text = ''
+        self.ids.senha_input.text = ''
+        self.ids.confirma_input.text = ''
+
+        self.manager.current = "login"
 
 class WelcomeScreen(Screen):
     def update_welcome(self, label):
@@ -38,16 +107,13 @@ class TreinoScreen(Screen):
 
 class ScheduleScreen(Screen):
     def on_enter(self):
-        # Pega o layout que vai receber os cards
         try:
             grid = self.ids.agenda_grid
         except AttributeError:
             print("O ID 'agenda_grid' não foi encontrado no KV.")
             return
 
-        grid.clear_widgets()  # Limpa cards antigos
-
-        # Lista de treinos e jogos
+        grid.clear_widgets()
         dados = [
             {"tipo": "Time", "nome": "Bom de Bola", "temporada": "2025", "categoria": "Sub-10", "tecnico": "Evandro M.P. Jadijisky"},
             {"tipo": "Treino", "descricao": "Treinos Fixos", "horario": "Seg e Ter: 18h às 20:30h"},
@@ -57,7 +123,6 @@ class ScheduleScreen(Screen):
         for item in dados:
             card = BoxLayout(orientation='vertical', size_hint_x=None, width=250, padding=15, spacing=8)
 
-            # Cor do card
             with card.canvas.before:
                 if item["tipo"] == "Time":
                     Color(0.2, 0.6, 0.9, 0.9)
@@ -80,15 +145,12 @@ class ScheduleScreen(Screen):
             elif item["tipo"] == "Treino":
                 card.add_widget(Label(text=item["descricao"], bold=True, font_size=16, color=(1,1,1,1)))
                 card.add_widget(Label(text=item["horario"], font_size=14, color=(1,1,1,1)))
-            else:  # Jogo/Amistoso
+            else:
                 card.add_widget(Label(text=item["nome"], bold=True, font_size=16, color=(1,1,1,1)))
-
-                # Campos interativos
                 self.ids.amistoso_data = TextInput(text=item["data"], multiline=False, size_hint_y=None, height=30)
                 self.ids.amistoso_horario = TextInput(text=item["horario"], multiline=False, size_hint_y=None, height=30)
                 self.ids.amistoso_local = TextInput(text=item["local"], multiline=False, size_hint_y=None, height=30)
                 self.ids.amistoso_adversario = TextInput(text=item["adversario"], multiline=False, size_hint_y=None, height=30)
-
                 card.add_widget(Label(text="Data:"))
                 card.add_widget(self.ids.amistoso_data)
                 card.add_widget(Label(text="Horário:"))
@@ -97,11 +159,8 @@ class ScheduleScreen(Screen):
                 card.add_widget(self.ids.amistoso_local)
                 card.add_widget(Label(text="Adversário:"))
                 card.add_widget(self.ids.amistoso_adversario)
-
-        # Adiciona o card ao layout horizontal
             grid.add_widget(card)
 
-        # Carrega dados salvos, se existir
         if os.path.exists("amistoso.json"):
             with open("amistoso.json", "r") as f:
                 dados_salvos = json.load(f)
@@ -124,21 +183,24 @@ class ScheduleScreen(Screen):
                       size_hint=(0.6, 0.3))
         popup.open()
 
+
 # --- Gerenciador de telas ---
 class ScreenManagement(ScreenManager): 
     pass
 
+
 # --- App principal ---
 class MyApp(App):
     def build(self):
-        # Carregar KV separadamente
         Builder.load_file("app.kv")
         Builder.load_file("welcome.kv")
         Builder.load_file("treino.kv")
         Builder.load_file("schedule.kv")
+        Builder.load_file("register.kv")  # tela register
 
         sm = ScreenManagement()
         sm.add_widget(LoginScreen(name='login'))
+        sm.add_widget(RegisterScreen(name='register'))
         sm.add_widget(WelcomeScreen(name='welcome'))
         sm.add_widget(TreinoScreen(name='treino'))
         sm.add_widget(ScheduleScreen(name='schedule'))
